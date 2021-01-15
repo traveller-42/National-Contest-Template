@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+int weight[1001],cost[1001];
+int dp[1005][32];
+int n , cap ;
+int knapsac(int pos , int w ){
+   if(pos==n+1) return 0;
+   int res1=0,res2=0;
+   if(dp[pos][w]!=-1)
+    return dp[pos][w];
+   if(w+weight[pos]<=cap)
+   res1=cost[pos] + knapsac(pos+1 , w+weight[pos]);
+   res2=knapsac(pos+1,w);
+   return dp[pos][w]=max(res1,res2);
+}
+
+int main(){
+  int tc;
+  scanf("%d",&tc);
+  for(int i=1;i<=tc;i++){
+     scanf("%d",&n);
+     for(int i=1;i<=n;i++){
+         scanf("%d%d",&cost[i],&weight[i]);
+     }
+     int g;
+     scanf("%d",&g);
+     int res=0;
+     for(int j=1;j<=g;j++){
+       memset(dp,-1,sizeof(dp));
+       scanf("%d",&cap);
+       int ano=knapsac(1, 0);
+       //cout << ano <<endl;
+       res+=ano;
+     }
+    printf("%d\n",res);
+  }
+  return 0;
+}

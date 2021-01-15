@@ -1,0 +1,21 @@
+#include<bits/stdc++.h>
+using namespace std;
+int dp[52];
+typedef  long long int ll ;
+int fibo(ll n){
+    //cout << "The number : " << n <<endl;
+    if(n==0) return 0;
+    if(n==1) return 1;
+    if(dp[n]!=-1) return dp[n];
+    dp[n]=fibo(n-1) + fibo(n-2);
+    //cout << n << endl;
+    return dp[n];
+}
+
+int main(){
+ ll n;
+ cin >> n;
+ memset(dp, -1 , sizeof(dp));
+ cout << fibo(n) <<endl;
+ return 0;
+}

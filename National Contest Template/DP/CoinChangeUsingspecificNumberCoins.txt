@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long int
+#define mod 100000007
+int coin[52],coincnt[52];
+int dp[51][51][1001];
+int n,k;
+int call(ll i,ll cnt,ll amount)
+{
+    if(i>n){
+       if(amount==0)
+          return 1;
+       else return 0;
+    }
+ 
+    if(dp[i][cnt][amount]!=-1) return dp[i][cnt][amount];
+    int ret1=0,ret2=0;
+    if(cnt<=coincnt[i] && amount-coin[i]>=0) ret1=call(i,cnt+1,amount-coin[i]);
+    ret2=call(i+1,1,amount);
+    return dp[i][cnt][amount]=(ret1+ret2)%mod;
+ 
+}
+int main(){
+  int tc;
+  cin >> tc;
+  for(int i=1;i<=tc;i++){
+     memset(dp,-1,sizeof(dp));
+     cin >> n >> k;
+     for(int i=1;i<=n;i++){
+        cin >> coin[i];
+     }
+     for(int i=1;i<=n;i++){
+       cin >> coincnt[i];
+     }
+     cout << "Case " << i << ": "<<call(1,1,k) <<endl;
+  }
+ 
+  return 0;
+}

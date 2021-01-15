@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+string a,b;
+int dp[1001][1001];
+
+int lcs(int i , int j){
+  if(i>=a.size() || j >= b.size())
+     return 0;
+  if(dp[i][j]!=-1)
+    return dp[i][j];
+  if(a[i]==b[j])
+     dp[i][j]=1+lcs(i+1,j+1);
+  if(a[i]!=b[j])
+       dp[i][j]=max(lcs(i+1,j),lcs(i,j+1));
+
+  return dp[i][j];
+
+}
+
+int main(){
+ while(getline(cin ,a ) && getline(cin , b)){
+   memset(dp,-1,sizeof(dp));
+   int asz=a.size();
+   int bsz=b.size();
+   int res=lcs(0,0);
+   cout << res << endl;
+ }
+ return 0;
+}
